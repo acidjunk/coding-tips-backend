@@ -1,0 +1,1 @@
+Will hold the static content like images
