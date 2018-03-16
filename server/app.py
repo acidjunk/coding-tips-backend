@@ -184,8 +184,8 @@ class UserAdminView(ModelView):
 
     # Prevent administration of Users unless the currently logged-in user has the "admin" role
     def is_accessible(self):
-        #todo only admins allowed
-        return current_user.is_authenticated
+        if 'admin' in current_user.roles:
+            return True
 
     # On the form for creating or editing a User, don't display a field corresponding to the model's password field.
     # There are two reasons for this. First, we want to encrypt the password before storing in the database. Second,
@@ -213,8 +213,8 @@ class RolesAdminView(ModelView):
 
     # Prevent administration of Roles unless the currently logged-in user has the "admin" role
     def is_accessible(self):
-        #todo only admins and operators allowed
-        return current_user.is_authenticated
+        if 'admin' in current_user.roles:
+            return True
 
 
 class CodingTipAdminView(ModelView):
@@ -224,8 +224,8 @@ class CodingTipAdminView(ModelView):
     column_searchable_list = ('name', )
 
     def is_accessible(self):
-        #todo only admin, moderators and operators allowed
-        return current_user.is_authenticated
+        if 'admin' in current_user.roles:
+            return True
 
 
 admin.add_view(CodingTipAdminView(CodingTip, db.session))
